@@ -12,5 +12,9 @@ Instalation
 Usage
 -----
 
-  * On folder public, run with `php -S localhost:8606 sample_name.php` and open http://localhost:8686
-  * On folder bin, run with `php sample_name.php`
+  * `composer.phar install` ([see how](http://getcomposer.org/))
+  * There's a README.md in each sample.
+  * `cd` to folder public/$sample_name.
+  * Run with `php -S localhost:8606`.
+  * Point a browser to http://localhost:8606
+
