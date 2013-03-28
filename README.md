@@ -12,7 +12,6 @@ Instalation
 Usage
 -----
 
-  * `composer.phar install` ([see how](http://getcomposer.org/))
   * There's a README.md in each sample.
   * `cd` to folder public/$sample_name.
   * Run with `php -S localhost:8606`.
