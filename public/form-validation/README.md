@@ -1,1 +1,1 @@
-Sorry! This is a preview.
+Sorry! This is a preview. See index.php.
