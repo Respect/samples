@@ -8,7 +8,7 @@
 // Additional comments are available after the 80th column of text per line.
 // Keep up with the $validAccount and $invalidAccount, they're the real samples.
 
-/* Configuration */
+/* Configuration, responsible for loading and preparing */
 
 require '../../vendor/autoload.php';                                            // Requiring libraries from the composer installation.
 
@@ -20,28 +20,28 @@ $minimumAge = 18;                                                               
 $data       = array(                                                            // $data array. These are the only variables passed to template.
     'messages'   => array(),                                                    // Validation messages, if any. Starts empty.
     'method'     => strtolower($method),                                        // Method used on form, must be lowercase by the spec.
-    'minimumAge' => $minimumAge
+    'minimumAge' => $minimumAge                                                 // This is used to render a proper range of years in the template.
 );
 
-/* Model */
+/* Model, contains the domain logic (in this case, just validating input) */
 
 $validAccount = v::arr()                                                        // We're gonna assert an array...
                  ->key('first', $n = v::string()->notEmpty()->length(3, 32))    // With a string key "first" from 3 to 32 chars.
                  ->key('last',  $n)                                             // Reusing the same rule for "last" key
-                 ->key('day', v::notEmpty())
-                 ->key('month', v::notEmpty())
-                 ->key('year', v::notEmpty())
-                 ->call(function ($acc) {
-                    return sprintf(
-                        '%04d-%02d-%02d', 
-                        $acc['year'], 
+                 ->key('day', v::notEmpty())                                    // Must have a key "date" not empty
+                 ->key('month', v::notEmpty())                                  // Must have a key "month" not empty
+                 ->key('year', v::notEmpty())                                   // Must have a key "year" not empty
+                 ->call(function ($acc) {                                       // Calls this function on the passed array  (will be $_POST)
+                    return sprintf(                                             // Formats a string...
+                        '%04d-%02d-%02d',                                       // To this date format, padding the numbers with zeroes
+                        $acc['year'],
                         $acc['month'], 
                         $acc['day']
                     );
-                 }, v::date('Y-m-d')->minimumAge($minimumAge))
+                 }, v::date('Y-m-d')->minimumAge($minimumAge))                  // Then get the fomatted string and validate date and minimum age.
                  ->setName('the New Account');                                  // Naming this rule!
 
-/* Controller */
+/* Controller, handles requests and binds layers */
                 
 extract(call_user_func(function ($validAccount, $method) {                      // Sandbox. Calls the function and only extract $data to template.
     $account = array();
@@ -52,11 +52,11 @@ extract(call_user_func(function ($validAccount, $method) {                      
     $account = filter_input_array(                                              // We're gonna get the form data using the filter extension
         INPUT_POST,                                                             // We want POST input data...
         array(
-            'first' => FILTER_SANITIZE_STRING,                                  // The name should be a sanitized string
-            'last'  => FILTER_SANITIZE_STRING,                                  // The name should be a sanitized string
-            'year'  => FILTER_SANITIZE_INT,                                     // The name should be a sanitized string
-            'month' => FILTER_SANITIZE_INT,                                     // The name should be a sanitized string
-            'day'   => FILTER_SANITIZE_INT                                      // The name should be a sanitized string
+            'first' => FILTER_SANITIZE_STRING,                                  // The first name should be a sanitized string
+            'last'  => FILTER_SANITIZE_STRING,                                  // The last name should be a sanitized string
+            'year'  => FILTER_SANITIZE_INT,                                     // The year should be a sanitized integer
+            'month' => FILTER_SANITIZE_INT,                                     // The month should be a sanitized integer
+            'day'   => FILTER_SANITIZE_INT                                      // The day should be a sanitized integer
         )
     );
 
@@ -66,11 +66,11 @@ extract(call_user_func(function ($validAccount, $method) {                      
         
     } catch (ValidationException $invalidAccount) {                             // In case of fail...
         $account['messages'] = array_filter(
-            array_values($invalidAccount->findMessages(
+            array_values($invalidAccount->findMessages(                         // Get messages for these keys
                 array(
-                    $validAccount->getName(), 
-                    'first.length', 
-                    'first.notEmpty' => 'First name must not be empty',
+                    $validAccount->getName(),                                   // Message for the name we set up there
+                    'first.length',                                             // finds the "length" validator for the "first" key
+                    'first.notEmpty' => 'First name must not be empty',         // You can override the error message if you want
                     'last.length',
                     'last.notEmpty'  => 'Last name must not be empty',
                     'day.notEmpty'   => 'Birth day name must not be empty',
@@ -85,7 +85,7 @@ extract(call_user_func(function ($validAccount, $method) {                      
     return $account;                                                            // All done. Return to the sandbox and kthxbai.
 }, $validAccount, $method) + $data);                                            // Concatenates data from model from initial config.
 
-/* View */
+/* View, displays data */
 ?>
 <!doctype html>
 <meta charset=utf-8>
