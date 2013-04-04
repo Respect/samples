@@ -59,12 +59,12 @@ $validAccount = v::arr()                                                        
                 array(
                     $validAccount->getName(),                                   // Mensagem para o nome que setamos anteriormente
                     'first.length',                                             // Encontra validador "length" para a chave "first"
-                    'first.notEmpty' => 'Primeiro nome não pode em branco',     // Se quiser você pode sobrescrever a mensagem de erro
+                    'first.notEmpty' => 'Nome não pode estar em branco',        // Se quiser você pode sobrescrever a mensagem de erro
                     'last.length',
-                    'last.notEmpty'  => 'Last name must not be empty',
-                    'day.notEmpty'   => 'Birth day name must not be empty',
-                    'year.notEmpty'  => 'Birth month name must not be empty',
-                    'month.notEmpty' => 'Birth year name must not be empty',
+                    'last.notEmpty'  => 'Sobrenome não pode estar em branco',
+                    'day.notEmpty'   => 'Dia de nascimento não pode estar em branco',
+                    'year.notEmpty'  => 'Ano de nascimento não pode estar em branco',
+                    'month.notEmpty' => 'Mês de nascimento não pode estar em branco',
                     'date',
                     'minimumAge'
                 )
