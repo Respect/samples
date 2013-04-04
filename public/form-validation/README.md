@@ -16,7 +16,7 @@ Code is split into MVC components but presented in a single file. They could be
 separated into different files, but we kept it like this for brevity. Each
 layer is marked similar to `/* Controller */` for educational purpouses.
 
-The Respect\Validation part is responsible for validating the submitted form 
+The Respect\Validation part is responsible for validating the submitted form
 data and if the validation fails report specific error messages. This is done
 by these two snippets that can be found on the index.php file:
 
@@ -34,7 +34,7 @@ $validAccount = v::arr()                                                        
                     return sprintf(                                             // Formats a string...
                         '%04d-%02d-%02d',                                       // To this date format, padding the numbers with zeroes
                         $acc['year'],
-                        $acc['month'], 
+                        $acc['month'],
                         $acc['day']
                     );
                  }, v::date('Y-m-d')->minimumAge($minimumAge))                  // Then get the fomatted string and validate date and minimum age.
@@ -49,7 +49,7 @@ $validAccount = v::arr()                                                        
     try {                                                                       // Starts an assertion to be used on Respect\Validation
         $validAccount->assert($account);
         $account['messages'] = array("Success!");                               // In case of success, say it!
-        
+
     } catch (ValidationException $invalidAccount) {                             // In case of fail...
         $account['messages'] = array_filter(
             array_values($invalidAccount->findMessages(                         // Get messages for these keys
@@ -70,4 +70,4 @@ $validAccount = v::arr()                                                        
     }
 ```
 
-Feel free to dig the code, make changes and open issues if you want. Any feedback is apreciated.
+Feel free to dig the code, make changes and open issues if you want. Any feedback is appreciated.
