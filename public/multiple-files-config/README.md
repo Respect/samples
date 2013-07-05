@@ -1,5 +1,4 @@
-Using Respect\Validation on Forms
-
+Using multiple Respect\Config files
 =================================
 
 General Instructions on [the main README.md](https://github.com/Respect/samples/blob/master/README.md)
