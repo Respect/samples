@@ -10,7 +10,7 @@ This sample describes a common pattern for managing application config using
 mulitple .ini files and Respect\Config.
 
 Please note that all application logic is kept at `index.php` just for brevity, but you can (and should)
-use any architecture that better suits your needs.
+use any architecture that better suits your needs. 
 
 Respect\Config is able to configure not only values and flags but entire object
 instances. It is designed to provide really flexible dependency injection.
@@ -22,6 +22,12 @@ for samples on how to configure Doctrine, Twig, etc.
 
 The [ConfigSymfony2HttpKernel sample](https://github.com/alganet/ConfigDoctrineSymfony2HttpKernel)
 also shows a proof of concept of the Symfony 2 HttpKernel dependency injection.
+
+Security Disclaimer
+-------------------
+
+In this sample, config files are being held on the `public` folder and acessible via HTTP. In a real
+application you should prevent this by not exposing this folder to the HTTP server.
 
 How It Works
 ------------
