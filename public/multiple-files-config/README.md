@@ -59,5 +59,5 @@ those routes to point to another classes in your application.
 Experimenting
 -------------
 
-Instead of running the sample with `php -S localhost:80` try changing the port and configuring it in the
+Instead of running the sample with `php -S localhost:8606` try changing the port and configuring it in the
 globals.ini file.
