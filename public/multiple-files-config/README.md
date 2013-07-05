@@ -9,7 +9,8 @@ About
 This sample describes a common pattern for managing application config using
 mulitple .ini files and Respect\Config.
 
-Please note that all application logic is kept at `index.php` just for brevity.
+Please note that all application logic is kept at `index.php` just for brevity, but you can (and should)
+use any architecture that better suits your needs.
 
 Respect\Config is able to configure not only values and flags but entire object
 instances. It is designed to provide really flexible dependency injection.
