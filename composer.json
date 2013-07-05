@@ -13,6 +13,9 @@
         }
     ],
     "require": {
-        "respect/validation": "dev-develop"
+        "respect/validation": "dev-develop",
+        "respect/rest": "0.5.x",
+        "respect/relational": "0.5.x",
+        "respect/config": "0.3.x"
     }
 }
